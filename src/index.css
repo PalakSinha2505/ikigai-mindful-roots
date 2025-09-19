@@ -2,41 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Ikigai Mental Health Platform Design System - Calming & Therapeutic Colors */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Main therapeutic color palette */
+    --background: 200 50% 98%;
+    --foreground: 210 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Calming teal primary */
+    --primary: 180 65% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 180 45% 85%;
+    --primary-dark: 180 75% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Soft green secondary */
+    --secondary: 140 35% 88%;
+    --secondary-foreground: 140 45% 25%;
+    --secondary-accent: 140 55% 65%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Gentle lavender accent */
+    --accent: 260 40% 88%;
+    --accent-foreground: 260 45% 25%;
+    --accent-purple: 260 55% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Muted calm tones */
+    --muted: 200 25% 95%;
+    --muted-foreground: 210 20% 45%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Therapeutic gradients */
+    --gradient-calm: linear-gradient(135deg, hsl(var(--primary-light)), hsl(var(--accent)));
+    --gradient-healing: linear-gradient(180deg, hsl(var(--secondary)), hsl(var(--primary-light)));
+    --gradient-emergency: linear-gradient(135deg, hsl(348 85% 85%), hsl(10 75% 88%));
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Emergency/Crisis colors - soft but noticeable */
+    --emergency: 348 75% 65%;
+    --emergency-foreground: 0 0% 100%;
+    --emergency-light: 348 55% 90%;
 
-    --radius: 0.5rem;
+    /* Success & wellness colors */
+    --success: 140 55% 60%;
+    --success-foreground: 0 0% 100%;
+    --wellness: 85 45% 65%;
+
+    /* Warning - gentle orange */
+    --warning: 35 85% 70%;
+    --warning-foreground: 35 45% 15%;
+
+    /* Border and input styling */
+    --border: 200 20% 90%;
+    --input: 200 20% 95%;
+    --ring: hsl(var(--primary));
+
+    /* Shadows for depth */
+    --shadow-soft: 0 4px 20px -2px hsl(var(--primary) / 0.1);
+    --shadow-card: 0 2px 10px -1px hsl(var(--primary) / 0.08);
+    --shadow-button: 0 2px 8px -1px hsl(var(--primary) / 0.15);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-gentle: all 0.2s ease-out;
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +133,90 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Button variants for the mental health platform */
+  .btn-hero {
+    @apply bg-gradient-to-br from-primary via-primary-dark to-secondary-accent 
+           text-primary-foreground font-semibold px-8 py-4 rounded-2xl 
+           shadow-[var(--shadow-button)] hover:shadow-lg transform 
+           transition-[var(--transition-smooth)] hover:scale-105;
+  }
+  
+  .btn-emergency {
+    @apply bg-gradient-to-r from-emergency to-emergency-light 
+           text-emergency-foreground font-bold px-6 py-3 rounded-xl 
+           shadow-[var(--shadow-button)] hover:shadow-lg animate-pulse 
+           transition-[var(--transition-gentle)];
+  }
+  
+  .btn-soft {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-xl 
+           shadow-[var(--shadow-card)] hover:bg-secondary-accent 
+           transition-[var(--transition-gentle)] border border-border;
+  }
+
+  /* Card styles for features */
+  .card-feature {
+    @apply bg-card border border-border rounded-2xl p-6 
+           shadow-[var(--shadow-card)] hover:shadow-lg 
+           transition-[var(--transition-smooth)] hover:scale-105;
+  }
+  
+  .card-calm {
+    @apply bg-gradient-to-br from-primary-light/30 to-accent/30 
+           border border-primary-light/50 rounded-2xl p-6 backdrop-blur-sm;
+  }
+
+  /* Icon containers */
+  .icon-primary {
+    @apply w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center
+           text-primary mb-4;
+  }
+  
+  .icon-emergency {
+    @apply w-12 h-12 bg-emergency/10 rounded-xl flex items-center justify-center
+           text-emergency mb-4;
+  }
+
+  /* Animations */
+  @keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  
+  .animate-gentle-bounce {
+    animation: gentle-bounce 2s ease-in-out infinite;
+  }
+  
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  /* Gradients as utilities */
+  .bg-gradient-calm {
+    background: var(--gradient-calm);
+  }
+  
+  .bg-gradient-healing {
+    background: var(--gradient-healing);
+  }
+  
+  .bg-gradient-emergency {
+    background: var(--gradient-emergency);
   }
 }
